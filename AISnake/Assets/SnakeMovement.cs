@@ -20,6 +20,16 @@ public class SnakeMovement : MonoBehaviour
         if (tag == "Player")
         {
             MouseRotationSnake();
+            if (Input.GetMouseButtonDown(0))
+            {
+                speed = speedRunning;
+                isRunning = true;
+            }
+            if (Input.GetMouseButtonUp(0))
+            {
+                speed = speedWalking;
+                isRunning = false;
+            }
         }
     }
 
@@ -32,14 +42,16 @@ public class SnakeMovement : MonoBehaviour
         direction.z = 0.0f;
 
         float angle = Mathf.Atan2(direction.x, direction.y) * Mathf.Rad2Deg;
-        Quaternion rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+        Quaternion rotation = Quaternion.AngleAxis(-angle, Vector3.forward);
         transform.rotation = Quaternion.Slerp(transform.rotation, rotation, speed * Time.deltaTime);
     }
 
-    public float speed = 1.5f;
+    public float speed = 3.5f;
+    public float speedWalking = 3.5f, speedRunning = 7.0f;
     public float currentRotation = 0.0f;
     public float rotationSensitivity = 300.0f;
 
+    public GameObject Eyes;
     void FixedUpdate()
     {
         if (tag == "Player")
@@ -50,14 +62,19 @@ public class SnakeMovement : MonoBehaviour
         {
             DummyBotBehavior();
         }
+
+        int nParts = head.GetComponent<SnakeMovement>().bodyParts.Count;
+        gameObject.GetComponent<SpriteRenderer>().sortingOrder = nParts;
+        Eyes.GetComponent<SpriteRenderer>().sortingOrder = nParts + 1;
     }
 
+    public bool isRunning = false;
     void PlayerBotBehavior()
     {
         MoveForwardMouse();
         CameraFollow();
         SpawnOrbManager();
-
+        
     }
 
     void DummyBotBehavior()
@@ -75,6 +92,10 @@ public class SnakeMovement : MonoBehaviour
 
     void MoveForward()
     {
+        float angle = Mathf.Atan2(direction.x, direction.y) * Mathf.Rad2Deg;
+        Quaternion rotation = Quaternion.AngleAxis(-angle, Vector3.forward);
+        transform.rotation = Quaternion.Slerp(transform.rotation, rotation, speed * Time.deltaTime);
+
         transform.position = Vector2.MoveTowards(transform.position, randomPoint, speed * Time.deltaTime);
     }
 
@@ -198,10 +219,7 @@ public class SnakeMovement : MonoBehaviour
         direction = randomPoint - transform.position;
         direction.z = 0.0f;
 
-        float angle = Mathf.Atan2(direction.x, direction.y) * Mathf.Rad2Deg;
-        Quaternion rotation = Quaternion.AngleAxis(angle, Vector3.forward);
-        transform.rotation = Quaternion.Slerp(transform.rotation, rotation, speed * Time.deltaTime);
-    }
 
+    }
 
 }
