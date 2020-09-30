@@ -12,7 +12,6 @@ public class SnakeMovement : MonoBehaviour
 
     public bool selected;
     public bool isDead;
-
   
     private Vector3 direction;
     public float speed;
