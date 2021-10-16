@@ -294,7 +294,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 3
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -715,7 +715,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 66cd5294d179eb04bb909d92843609e6, type: 2}
   - {fileID: 11400000, guid: 160418bca43e39d4c85ea4b4c53179e4, type: 2}
   OrbsPerSnake: 1
-  NumberSnakes: 5
+  NumberSnakes: 100
   OrbSpawnTime: 1
   orbPreFab: {fileID: 4286169683249845843, guid: df1a7f71960ecd34ebcb0ecc0199b600,
     type: 3}
